@@ -19,13 +19,20 @@ function App() {
     }));
   }
 
+  const inputIsValid =
+    userInput.initialInvestment > 0 &&
+    userInput.duration >= 1;
+
   return (
     <>
       <Header />
-      <main>
-        <UserInput userInput={userInput} onChange={handleChange} />
-        <Results input={userInput} />
-      </main>
+      <UserInput userInput={userInput} onChange={handleChange} />
+      {!inputIsValid && (
+        <p className="center">
+          Please enter valid values (positive numbers).
+        </p>
+      )}
+      {inputIsValid && <Results input={userInput} />}
     </>
   );
 }
