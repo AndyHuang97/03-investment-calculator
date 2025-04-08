@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Header from "./components/header";
 import UserInput from "./components/UserInput";
+import Results from "./components/Results";
 
 function App() {
   const [userInput, setUserInput] = useState({
@@ -11,14 +12,19 @@ function App() {
     duration: 10,
   });
 
+  function handleChange(inputIdentifier, newValue) {
+    setUserInput((pervUserInput) => ({
+      ...pervUserInput,
+      [inputIdentifier]: +newValue, // "+" Convert string to number
+    }));
+  }
+
   return (
     <>
       <Header />
       <main>
-        <UserInput
-          userInput={userInput}
-          setUserInput={setUserInput}
-        />
+        <UserInput userInput={userInput} onChange={handleChange} />
+        <Results input={userInput} />
       </main>
     </>
   );
